@@ -21,7 +21,7 @@ class ImportCsvCommand extends Command
     {
         parent::__construct(self::$defaultName);
         $this->path = $path;
-        $this->objectManager =$objectManager;
+        $this->objectManager = $objectManager;
     }
 
 

@@ -2,19 +2,23 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\UsersRepository;
 use App\Service\UserService;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 
 class requestAPi
 {
     protected $userRepository;
     protected $userService;
+    protected $objectManager;
 
-    public function __construct(UsersRepository $usersRepository, UserService $userService)
+    public function __construct(UsersRepository $usersRepository, UserService $userService, ObjectManager $objectManager)
     {
         $this->userRepository = $usersRepository;
         $this->userService = $userService;
+        $this->objectManager = $objectManager;
     }
 
     /**
@@ -31,10 +35,20 @@ class requestAPi
             foreach ($usersInstance as $userInstance) {
                 $results[] = $this->userService->UserAsArray($userInstance);
             }
-            echo '<pre>';
-            var_dump($results);
-            echo '</pre>';
+        } elseif ($_GET['request'] == 'create') {
+            $user = $this->userRepository->findOneBy(['username' => $_GET['name']]);
+            if ($user instanceof User) {
+                throw new \Exception('User alredy exist');
+            }
+            $user =$this->userService->setNewUser($_GET);
+            $this->objectManager->persist($user);
+            $this->objectManager->flush();
         }
 
+
+
+//        echo '<pre>';
+//        var_dump($results);
+//        echo '</pre>';
     }
 }
