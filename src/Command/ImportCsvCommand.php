@@ -67,7 +67,7 @@ class ImportCsvCommand extends Command
 
     /**
      * Get csv data as iterator.
-     * 
+     *
      * @return \iterable
      */
     protected function getIterator()
