@@ -36,7 +36,7 @@ class RequestService
      * @return array
      * @throws \Exception
      */
-    public function findOne($data)
+    public function findOne(array $data): array
     {
         $userInstance = $this->userRepository->findOneBy(['username' => $data['name']]);
         if (!($userInstance instanceof User)) {
@@ -51,7 +51,7 @@ class RequestService
      *
      * @return array
      */
-    public function findAll()
+    public function findAll(): array
     {
         $usersInstance = $this->userRepository->findAll();
         $result = [];
@@ -67,7 +67,7 @@ class RequestService
      * @return string
      * @throws \Exception
      */
-    public function create()
+    public function create(): string
     {
         $user = $this->userRepository->findOneBy(['username' => $_GET['name']]);
         if ($user instanceof User) {
@@ -85,7 +85,7 @@ class RequestService
      * @return string
      * @throws \Exception
      */
-    public function update()
+    public function update(): string
     {
         $user = $this->userRepository->findOneBy(['username' => $_GET['name']]);
         if (!($user instanceof User)) {

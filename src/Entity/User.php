@@ -41,16 +41,26 @@ class User
      */
     private $xrp;
 
+    /**
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getUsername(): string
     {
         return $this->username;
     }
 
+    /**
+     * @param string $username
+     * @return User
+     */
     public function setUsername(string $username): self
     {
         $this->username = $username;
@@ -58,11 +68,18 @@ class User
         return $this;
     }
 
+    /**
+     * @return float|null
+     */
     public function getBtc(): float
     {
         return $this->btc;
     }
 
+    /**
+     * @param float $btc
+     * @return User
+     */
     public function setBtc(float $btc): self
     {
         $this->btc = $btc;
@@ -70,11 +87,18 @@ class User
         return $this;
     }
 
+    /**
+     * @return float|null
+     */
     public function getEth(): float
     {
         return $this->eth;
     }
 
+    /**
+     * @param float $eth
+     * @return User
+     */
     public function setEth(float $eth): self
     {
         $this->eth = $eth;
@@ -82,11 +106,18 @@ class User
         return $this;
     }
 
+    /**
+     * @return float|null
+     */
     public function getLtc(): float
     {
         return $this->ltc;
     }
 
+    /**
+     * @param float $ltc
+     * @return User
+     */
     public function setLtc(float $ltc): self
     {
         $this->ltc = $ltc;
@@ -94,11 +125,18 @@ class User
         return $this;
     }
 
+    /**
+     * @return float|null
+     */
     public function getXrp(): float
     {
         return $this->xrp;
     }
 
+    /**
+     * @param float $xrp
+     * @return User
+     */
     public function setXrp(float $xrp): self
     {
         $this->xrp = $xrp;

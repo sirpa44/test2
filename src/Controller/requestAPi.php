@@ -2,11 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Repository\UsersRepository;
-use App\Service\requestService;
-use App\Service\UserService;
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Service\RequestService;
 use Symfony\Component\Routing\Annotation\Route;
 
 class requestAPi
