@@ -4,51 +4,45 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\UsersRepository;
+use App\Service\requestService;
 use App\Service\UserService;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 
 class requestAPi
 {
-    protected $userRepository;
-    protected $userService;
-    protected $objectManager;
+    /**
+     * @var requestService
+     */
+    protected $request;
 
-    public function __construct(UsersRepository $usersRepository, UserService $userService, ObjectManager $objectManager)
+    public function __construct(RequestService $requestService)
     {
-        $this->userRepository = $usersRepository;
-        $this->userService = $userService;
-        $this->objectManager = $objectManager;
+        $this->request = $requestService;
     }
 
     /**
+     * select the requestService and return the results
+     *
      * @Route("/", name="api.home")
+     * @throws \Exception
      */
     public function requestHandling()
     {
-        if ($_GET['request'] == 'findOne') {
-            $userInstance = $this->userRepository->findOneBy(['username' => $_GET['name']]);
-            $results = $this->userService->UserAsArray($userInstance);
-        } elseif ($_GET['request'] == 'findAll') {
-            $usersInstance = $this->userRepository->findAll();
-            $results = [];
-            foreach ($usersInstance as $userInstance) {
-                $results[] = $this->userService->UserAsArray($userInstance);
-            }
-        } elseif ($_GET['request'] == 'create') {
-            $user = $this->userRepository->findOneBy(['username' => $_GET['name']]);
-            if ($user instanceof User) {
-                throw new \Exception('User alredy exist');
-            }
-            $user =$this->userService->setNewUser($_GET);
-            $this->objectManager->persist($user);
-            $this->objectManager->flush();
+        if (!key_exists('request', $_GET)) {
+            throw new \Exception('request value doesn\'t exist');
         }
-
-
-
-//        echo '<pre>';
-//        var_dump($results);
-//        echo '</pre>';
+        if ($_GET['request'] == 'findOne') {
+            $result = $this->request->findOne($_GET);
+        } elseif ($_GET['request'] == 'findAll') {
+            $result = $this->request->findAll();
+        } elseif ($_GET['request'] == 'create') {
+            $result = $this->request->create();
+        } elseif ($_GET['request'] == 'update') {
+            $result = $this->request->update();
+        } else {
+            throw new \Exception('request value doesn\'t exist');
+        }
+        return $result;
     }
 }

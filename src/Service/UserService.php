@@ -7,6 +7,12 @@ use App\Entity\User;
 class UserService
 {
 
+    /**
+     * make an array of user data from an instance of user
+     *
+     * @param $user User
+     * @return array
+     */
     public function UserAsArray($user)
     {
         $user = [
@@ -20,10 +26,26 @@ class UserService
         return $user;
     }
 
+    /**
+     * create a new user
+     *
+     * @param $data array
+     * @return User
+     */
     public function setNewUser($data)
     {
         $user = new User();
         $user->setUsername($data['name']);
+        return $this->setUserData($user, $data);
+    }
+
+    /**
+     * @param $user User
+     * @param $data array
+     * @return User
+     */
+    public function setUserData($user, $data)
+    {
         if (key_exists('eth', $data)) {
             $user->setEth($data['eth']);
         }

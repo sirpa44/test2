@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace App\Command;
 
@@ -14,7 +14,13 @@ use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 class ImportCsvCommand extends Command
 {
     protected static $defaultName = 'app:import-csv';
+    /**
+     * @var string
+     */
     protected $path;
+    /**
+     * @var ObjectManager
+     */
     protected $objectManager;
 
     public function __construct($path, ObjectManager $objectManager)
